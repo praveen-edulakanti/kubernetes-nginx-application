@@ -1,0 +1,50 @@
+
+*******************************************************************
+.
+. Demo: Play-with-K8s
+.
+
+*******************************************************************
+
+# 1. Create four instances. One for master and three for worker nodes.
+
+Required "Docker" or "Github" account.
+
+https://labs.play-with-k8s.com/
+
+
+*******************************************************************
+
+
+# 2. Initialize Master node
+
+kubeadm init --apiserver-advertise-address $(hostname -i)
+
+kubectl apply -n kube-system -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 |tr -d '\n')"
+
+
+*******************************************************************
+
+# 3. Join worker node to the cluster
+
+kubeadm join --token [...] --discovery-token-ca-cert-hash [...]
+
+
+*******************************************************************
+
+# 4. Testing
+
+kubectl get no
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx-app.yaml
+
+kubectl get po
+
+   
+*******************************************************************
+
+
+
+
+
+ 
